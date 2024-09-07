@@ -1,10 +1,19 @@
 # FitnessTrack
 
-##Go to cd client
 
-##npm install styled-components @mui/material @mui/lab @mui/icons-material @emotion/styled @emotion/react axios react-router-dom react-redux redux-persist @reduxjs/toolkit dayjs @mui/x-charts @mui/x-date-pickers
+## Run Locally
 
+Go to 
+```bash
+  cd client
+```
 
-#Inside the project file type:
+```bash
+  npm install styled-components @mui/material @mui/lab @mui/icons-material @emotion/styled @emotion/react axios react-router-dom react-redux redux-persist @reduxjs/toolkit dayjs @mui/x-charts @mui/x-date-pickers
+```
 
-npx create-react-app client  
+Inside the project folder
+
+```bash
+  npx create-react-app client  
+```
