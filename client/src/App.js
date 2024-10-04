@@ -7,8 +7,7 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Workouts from "./pages/Workouts";
-// import Dashboard from "./pages/Dashboard";
-// import Workouts from "./pages/Workouts";
+
 
 const Container = styled.div`
   width: 100%;
