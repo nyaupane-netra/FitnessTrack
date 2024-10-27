@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { PieChart } from "@mui/x-charts/PieChart";
 
 const Card = styled.div`
-  flex: 1.5;
-  min-width: 260px;
-  padding: 22px;
+  flex: 1;
+  min-width: 280px;
+  padding: 24px;
   border: 1px solid ${({ theme }) => theme.text_primary + 20};
   border-radius: 14px;
   box-shadow: 1px 6px 20px 0px ${({ theme }) => theme.primary + 15};
@@ -34,7 +34,7 @@ const CategoryChart = ({ data }) => {
           series={[
             {
               data: data?.pieChartData,
-              innerRadius: 28,
+              innerRadius: 30,
               outerRadius: 120,
               paddingAngle: 5,
               cornerRadius: 5,

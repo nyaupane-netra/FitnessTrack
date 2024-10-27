@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
 const Card = styled.div`
   flex: 1;
@@ -70,6 +70,7 @@ const Icon = styled.div`
   color: ${color};
   `}
 `;
+
 const Desc = styled.div`
   font-size: 14px;
   color: ${({ theme }) => theme.text_secondary + 90};
@@ -79,19 +80,23 @@ const Desc = styled.div`
   }
 `;
 
-const CountsCard = ({item, data}) => {
-  return <Card>
-    <Left>
+const CountsCard = ({ item, data }) => {
+  return (
+    <Card>
+      <Left>
         <Title>{item.name}</Title>
         <Value>
-            {data && data[item.key].toFixed(2)}
-            <Unit>{item.unit}</Unit>
-            <Span positive> (+10%) </Span>
+          {data && data[item.key].toFixed(2)}
+          <Unit>{item.unit}</Unit>
+          <Span positive>(+10%)</Span>
         </Value>
         <Desc>{item.desc}</Desc>
-    </Left>
-    <Icon color={item.color} bg={item.lightColor}>{item.icon}</Icon>
-  </Card>
-}
+      </Left>
+      <Icon color={item.color} bg={item.lightColor}>
+        {item.icon}
+      </Icon>
+    </Card>
+  );
+};
 
-export default CountsCard
+export default CountsCard;

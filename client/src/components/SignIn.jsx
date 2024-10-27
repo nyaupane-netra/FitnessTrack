@@ -1,8 +1,10 @@
-import React from 'react'
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 import TextInput from "./TextInput";
 import Button from "./Button";
-
+import { UserSignIn } from "../api";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../redux/reducers/userSlice";
 
 const Container = styled.div`
   width: 100%;
@@ -21,14 +23,52 @@ const Span = styled.div`
   font-weight: 400;
   color: ${({ theme }) => theme.text_secondary + 90};
 `;
-const SignIn = () => {
-  return <Container>
-    <div>
-      <Title>Welcome to FitTrack 👋</Title>
-      <Span>Please Login with your details here!</Span>
-    </div>
 
-    <div
+const SignIn = () => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const validateInputs = () => {
+    if (!email || !password) {
+      alert("Please fill in all fields");
+      return false;
+    }
+    return true;
+  };
+
+  const handelSignIn = async () => {
+    setLoading(true);
+    setButtonDisabled(true);
+    if (validateInputs()) {
+        await UserSignIn({ email, password })
+            .then((res) => {
+                dispatch(loginSuccess(res.data));
+                alert("Login Success");
+            })
+            .catch((err) => {
+                const errorMessage = err.response && err.response.data
+                    ? err.response.data.message
+                    : "An error occurred. Please try again.";
+                alert(errorMessage);
+            })
+            .finally(() => {
+                setLoading(false);
+                setButtonDisabled(false);
+            });
+    }
+};
+
+
+  return (
+    <Container>
+      <div>
+        <Title>Welcome to Fittrack 👋</Title>
+        <Span>Please login with your details here</Span>
+      </div>
+      <div
         style={{
           display: "flex",
           gap: "20px",
@@ -38,19 +78,25 @@ const SignIn = () => {
         <TextInput
           label="Email Address"
           placeholder="Enter your email address"
+          value={email}
+          handelChange={(e) => setEmail(e.target.value)}
         />
         <TextInput
           label="Password"
           placeholder="Enter your password"
           password
+          value={password}
+          handelChange={(e) => setPassword(e.target.value)}
         />
         <Button
           text="SignIn"
+          onClick={handelSignIn}
+          isLoading={loading}
+          isDisabled={buttonDisabled}
         />
       </div>
-  </Container>
-
-  
+    </Container>
+  );
 };
 
 export default SignIn;
