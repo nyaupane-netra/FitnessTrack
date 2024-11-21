@@ -42,12 +42,13 @@ app.get("/", async (req, res) => {
       });
   };
 
-const startServer = async () => {
-    try{
-        connectDB();
-        app.listen(8080, () => console.log(`Server started on port 8080`));
+  const startServer = async () => {
+    try {
+        await connectDB();
+        const PORT = process.env.PORT || 8080;  // Use the environment variable PORT if available
+        app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
     } catch (err) {
-        console.log(err);
+        console.log("Error starting server:", err);
     }
 };
 

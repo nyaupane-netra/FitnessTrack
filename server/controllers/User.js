@@ -220,10 +220,14 @@ export const UserLogin = async (req, res, next) => {
   export const addWorkout = async (req, res, next) => {
     try {
       const userId = req.user?.id;
-      const { workoutString } = req.body;
+      const { workoutString, date } = req.body;
       if (!workoutString) {
         return next(createError(400, "Workout string is missing"));
       }
+
+      // Parse the date or use current date as default
+      const workoutDate = date ? new Date(date) : new Date();
+      
       // Split workoutString into lines
       const eachworkout = workoutString.split(";").map((line) => line.trim());
       // Check if any workouts start with "#" to indicate categories
@@ -271,12 +275,17 @@ export const UserLogin = async (req, res, next) => {
       // Calculate calories burnt for each workout
       await parsedWorkouts.forEach(async (workout) => {
         workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
-        await Workout.create({ ...workout, user: userId });
+        await Workout.create({ 
+          ...workout, 
+          user: userId,
+          date: workoutDate
+        });
       });
   
       return res.status(201).json({
         message: "Workouts added successfully",
         workouts: parsedWorkouts,
+        date: workoutDate
       });
     } catch (err) {
       next(err);
