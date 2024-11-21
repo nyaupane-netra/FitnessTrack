@@ -23,7 +23,7 @@ Go to the Server Folder
   npm install
 ```
 
-After Installing all the dependencies create one file named .env and add your Mongodb URI and JWT key inside that file.
+After Installing all the dependencies create one file named .env inside the server folder and add your Mongodb URI and JWT key inside that file.
 
 ## Starting the Project
 
